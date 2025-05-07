@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
 jobs:
   analyze:
     name: Analyze CodeQL
@@ -15,22 +20,21 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Set up CodeQL
-      uses: github/codeql-action/setup-codeql@v2
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: cpp
 
     - name: Set up dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install build-essential # If you need to install build dependencies (for make)
+        sudo apt-get install -y build-essential
 
     - name: Build the code
       run: |
-        make clean
-        make
+        gcc -o dos main.c -I. -L. -ldeckManagement
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
-      with:
-        category: "default"
