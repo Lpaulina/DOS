@@ -1,41 +1,30 @@
-name: CodeQL Analysis
+name: CodeQL
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
-
-permissions:
-  actions: read
-  contents: read
-  security-events: write
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'
 
 jobs:
   analyze:
-    name: Analyze CodeQL
+    name: Analyze
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v1
       with:
-        # Only specify cpp as the language to analyze
-        languages: cpp
+        languages: c
 
-    - name: Set up dependencies
+    - name: Build project
       run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential
-
-    - name: Build the code manually
-      run: |
-        gcc -o dos main.c -I. -L. -ldeckManagement
+        make clean
+        make
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@v1
