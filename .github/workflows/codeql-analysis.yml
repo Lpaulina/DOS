@@ -1,10 +1,10 @@
-name: CodeQL
+name: "CodeQL"
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
   schedule:
     - cron: '0 0 * * 0'
 
@@ -12,19 +12,23 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        language: [ 'c' ]
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v2
       with:
-        languages: c
+        languages: ${{ matrix.language }}
 
     - name: Build project
       run: |
-        make clean
         make
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2
