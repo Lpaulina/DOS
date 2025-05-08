@@ -32,7 +32,7 @@ int main(void){
     bool aMatch = false;
     
     
-    srand((int)time(0));
+    srand((unsigned int)time(0));
     while(!shuffle){
         
         printf("Press 1 to shuffle the DOS deck or 2 to load a deck from a file: ");
@@ -111,7 +111,7 @@ int main(void){
         while(centerCard != NULL){
             
             printf("Centerline:");
-            printDeck( chead, ctail);
+            printDeck( chead);
             
             //print hand
             if(player == 1){
@@ -120,7 +120,7 @@ int main(void){
             else{
                 printf("\nPlayer’s two hand:");
             }
-            printDeck(headCurr, tailCurr);
+            printDeck(headCurr);
             
             
             if(centerCard->value == 11){
@@ -275,7 +275,7 @@ int main(void){
                     if (colorMatch == 2){
                         printf("\nDouble color match! Select an additional card to place in the centerline. One additional card added to opponent.\n");
                         printf("Hand :");
-                        printDeck( headCurr, tailCurr);
+                        printDeck( headCurr);
                         printf("Select a card to add to center line: ");
                         scanf("%d", &card1);
                         
@@ -321,7 +321,7 @@ int main(void){
                     numpCurr += 1;
                     
                     printf("Hand: ");
-                    printDeck(headCurr, tailCurr);
+                    printDeck(headCurr);
                     
                     printf("Select a card to put into the centerline:\n");
                     scanf("%d", &card1);

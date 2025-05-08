@@ -11,7 +11,7 @@ typedef struct card_s {
     char action[15];
     struct card_s *next;
 } card;
-void printDeck(card *headpt,card *tailpt){
+void printDeck(card *headpt){
     
         while(headpt!=NULL){  //print whole linked list
             
@@ -49,22 +49,25 @@ void addCard(card deck,card **head, card **tail ){ //cited from slides
 //make a clone of card that will be added
     card *temp;
     temp = (card*)malloc(sizeof (card));
-    strcpy(temp->color,deck.color);
-    temp->value = deck.value;
-    strcpy(temp ->action,deck.action );
     
-        if(*head == NULL){ // if list is NULL
-            *head = temp;
-            *tail = temp;
-            temp->previous = NULL;
-            temp ->next = *tail;
-        }
-        else { // add to tail
-            temp -> previous = *tail;
-            (*tail)->next = temp;
-            *tail = temp;
-            temp ->next = NULL;
-        }
+    if (temp != NULL){
+        strcpy(temp->color,deck.color);
+        temp->value = deck.value;
+        strcpy(temp ->action,deck.action );
+        
+            if(*head == NULL){ // if list is NULL
+                *head = temp;
+                *tail = temp;
+                temp->previous = NULL;
+                temp ->next = *tail;
+            }
+            else { // add to tail
+                temp -> previous = *tail;
+                (*tail)->next = temp;
+                *tail = temp;
+                temp ->next = NULL;
+            }
+    }
 }
 void deleteMember(card **h, card **t, card *p){  //cited from slides
     
@@ -86,7 +89,7 @@ void shuffleDeck(card cards[]){
     int i;
     int randInt;
     card temp;
-    srand((int)time(0));
+    srand((unsigned int)time(0));
     
     for(i = 0; i < deckSize; i++){
         randInt = rand() % (i+1);

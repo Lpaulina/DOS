@@ -7,7 +7,7 @@ typedef struct card_s {
     char action[15];
     struct card_s *next;
 } card;
-void printDeck(card *headpt,card*tails); //print cards  value and color (if number is 11 , change into #)
+void printDeck(card *headpt); //print cards  value and color (if number is 11 , change into #)
 void deckCreation(FILE* inp, card deck[]);  //get dech of cards from file
 void addCard( card deck, card **head, card **tail ); // (p--next) be changed into  (p--deck[]--next)
 void deleteMember(card **h, card **t, card *p); //delete cards from double linked list
